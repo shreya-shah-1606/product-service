@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,8 @@ public class ProductController {
 
 	@Autowired
 	ProductService productService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 	@RequestMapping(value = "getAllProducts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Get Products", description = "Get Products")
@@ -41,6 +45,7 @@ public class ProductController {
 	public String getAllOrders(HttpServletRequest request, HttpServletResponse response) {
 		String res = null;
 		ObjectMapper Obj = new ObjectMapper();
+		logger.info("Getting all products from Controller");
 		List<Product> products = productService.getAllProducts();
 		response.setStatus(200);
 		try {
